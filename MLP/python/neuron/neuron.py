@@ -8,15 +8,13 @@ class Neuron():
 
         self.nInputs = nInputs
 
-        self.weights = [None] * nInputs + 1
+        self.weights = [None] * (nInputs + 1)
         self.inputs = [None] * nInputs
 
         self.output = None
 
-        for i in range(nInputs):
-            self.weights = random.random()
-
-        print(round( self.weights,4))
+        for i in range(nInputs + 1):
+            self.weights[i] = random.random()
 
     @staticmethod
     def setLearningRate(lr):
@@ -27,12 +25,14 @@ class Neuron():
        return (1/(1+math.exp(-x)))
 
     def getOutput(self):
-        sum = self.weights[0] * 1
+        sum = self.weights[0] #Bias weight
 
+#       Sum of weights * inputs
         for i in range(self.nInputs):
-            sum += self.weights[i + 1] * self.inputs[i]
+            sum += self.weights[i + 1] * self.inputs[i] 
 
-        self.output = Neuron.sigmoid(sum)
+#       sigmoid function
+        self.output = Neuron.sigmoid(sum)	
         return self.output
 
     def setInput(self, inputVector):
